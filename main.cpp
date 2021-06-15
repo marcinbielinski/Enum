@@ -12,21 +12,23 @@ public:
     Calculate() = default;
 
     static double runCalc() {
+
         greetings();
-            while(true) {
-                auto method = getInput();
-                switch (method) {
-                    case Method::addition:
-                        return add();
-                    case Method::subtraction:
-                        return subtract();
-                    case Method::areaOfTriangle:
-                        return area();
-                    case Method::division:
-                        return division();
-                }
-            }
+
+        auto method = getInput();
+
+        switch (method)
+        {
+            case Method::addition:
+                return add();
+            case Method::subtraction:
+                return subtract();
+            case Method::areaOfTriangle:
+                return area();
+            case Method::division:
+                return division();
         }
+    }
     static Method getInput() {
         int input;
         std::cout << "Please input a valid operation number: " << std::endl;
@@ -34,15 +36,17 @@ public:
         while(true)
         {
             std::cin >> input;
-            if(input <= 4 and input != 0){
-                break; }
-            else {
-                std::cout << "Invalid input try again" << std::endl; }
+            if(input <= 4 and input != 0)
+            {
+                break; // break out of the loop
+            }
+            else
+            {
+                std::cout << "Invalid input try again" << std::endl;
+            }
         }
+        // after break - cast return value to Method
         return static_cast<Method>(input);
-    }
-    static void printResult() {
-        std::cout << runCalc();
     }
 
 private:
@@ -77,6 +81,6 @@ private:
 };
 
 int main() {
-    Calculate::printResult();
+    std::cout << Calculate::runCalc();
     return 0;
 }
