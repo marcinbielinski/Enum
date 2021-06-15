@@ -17,8 +17,7 @@ public:
                      "Area of a triangle : 3 \n"
                      "Division : 4 \n";
     }
-    static double takeInput() {
-        std::cout << "Please enter a number 1-4 to choose method of calculation." << std::endl;
+    static double getInput() {
 
         int input = inputValidity();
         auto userMethod = static_cast<Method>(input);
@@ -34,11 +33,13 @@ public:
                 return division();
             default:
                 std::cout << "Incorrect method chosen" << std::endl;
-                takeInput();
+                getInput();
         }
     }
     static int inputValidity()
     {
+        std::cout << "Please enter a number 1-4 to choose method of calculation." << std::endl;
+
         int x;
         std::cin >> x;
         while(std::cin.fail())
@@ -52,7 +53,7 @@ public:
     }
 
     static void printResult() {
-        std::cout << takeInput();
+        std::cout << getInput();
     }
 
 private:
