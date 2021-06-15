@@ -1,9 +1,11 @@
 #include <iostream>
 
-enum Method {   addition = 1,
-                subtraction = 2,
-                areaOfTriangle = 3,
-                division = 4, };
+enum class Method {
+    addition = 1,
+    subtraction = 2,
+    areaOfTriangle = 3,
+    division = 4,
+};
 
 class Calculate {
 public:
@@ -17,39 +19,34 @@ public:
                      "Area of a triangle : 3 \n"
                      "Division : 4 \n";
     }
+
     static double getInput() {
+        std::cout << "Please enter a number 1-4 to choose available method of calculation." << std::endl;
+        int input;
 
-        int input = inputValidity();
-        auto userMethod = static_cast<Method>(input);
-
-        switch(userMethod){
-            case 1:
-                return add();
-            case 2:
-                return subtract();
-            case 3:
-                return area();
-            case 4:
-                return division();
-            default:
-                std::cout << "Incorrect method chosen" << std::endl;
+        while(true) {
+                while (!(std::cin >> input)) {
+                    std::cout << "Must be a number!" << std::endl;
+                    std::cin.clear();
+                    std::cin.ignore(10, '\n');
+                }
+            if (input <= 4 && input != 0) {
+                auto userMethod = static_cast<Method>(input);
+                switch (userMethod) {
+                    case Method::addition:
+                        return add();
+                    case Method::subtraction:
+                        return subtract();
+                    case Method::areaOfTriangle:
+                        return area();
+                    case Method::division:
+                        return division();
+                }
+            } else {
                 getInput();
+            }
+            break;
         }
-    }
-    static int inputValidity()
-    {
-        std::cout << "Please enter a number 1-4 to choose method of calculation." << std::endl;
-
-        int x;
-        std::cin >> x;
-        while(std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Your entry must be a digit representing an available method." << std::endl;
-            std::cin >> x;
-        }
-        return x;
     }
 
     static void printResult() {
@@ -57,18 +54,21 @@ public:
     }
 
 private:
-    static constexpr double first {10.55};
-    static constexpr double second {20.55};
+    static constexpr double first{10.55};
+    static constexpr double second{20.55};
 
-    static double add()  {
+    static double add() {
         return first + second;
     }
+
     static double subtract() {
         return first - second;
     }
+
     static double area() {
         return (first * second) / 2;
     }
+
     static double division() {
         return (first / second);
     }
