@@ -11,28 +11,11 @@ class Calculate {
 public:
     Calculate() = default;
 
-    static void greetings() {
-        std::cout << "Hello! Do you want to calculate something? \n"
-                     "These are available methods: \n"
-                     "Addition : 1 \n"
-                     "Subtraction : 2 \n"
-                     "Area of a triangle : 3 \n"
-                     "Division : 4 \n";
-    }
-
-    static double getInput() {
-        std::cout << "Please enter a number 1-4 to choose available method of calculation." << std::endl;
-        int input;
-
-        while(true) {
-                while (!(std::cin >> input)) {
-                    std::cout << "Must be a number!" << std::endl;
-                    std::cin.clear();
-                    std::cin.ignore(10, '\n');
-                }
-            if (input <= 4 && input != 0) {
-                auto userMethod = static_cast<Method>(input);
-                switch (userMethod) {
+    static double runCalc() {
+        greetings();
+            while(true) {
+                auto method = getInput();
+                switch (method) {
                     case Method::addition:
                         return add();
                     case Method::subtraction:
@@ -42,15 +25,24 @@ public:
                     case Method::division:
                         return division();
                 }
-            } else {
-                getInput();
             }
-            break;
         }
-    }
+    static Method getInput() {
+        int input;
+        std::cout << "Please input a valid operation number: " << std::endl;
 
+        while(true)
+        {
+            std::cin >> input;
+            if(input <= 4 and input != 0){
+                break; }
+            else {
+                std::cout << "Invalid input try again" << std::endl; }
+        }
+        return static_cast<Method>(input);
+    }
     static void printResult() {
-        std::cout << getInput();
+        std::cout << runCalc();
     }
 
 private:
@@ -72,10 +64,19 @@ private:
     static double division() {
         return (first / second);
     }
+
+    static void greetings() {
+        std::cout << "Hello! Do you want to calculate something? \n"
+                     "These are available methods: \n"
+                     "Addition : 1 \n"
+                     "Subtraction : 2 \n"
+                     "Area of a triangle : 3 \n"
+                     "Division : 4 \n";
+    }
+
 };
 
 int main() {
-    Calculate::greetings();
     Calculate::printResult();
     return 0;
 }
